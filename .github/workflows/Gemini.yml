@@ -1,0 +1,35 @@
+name: Java CI
+
+on:
+  push:
+    branches:
+      - Danai
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.pull_request.head.ref }}
+        fetch-depth: ${{ env.PR_FETCH_DEPTH }}
+
+    - name: Set up JDK
+      uses: actions/setup-java@v1
+      with:
+        java-version: '11' # You can change this to the version you want
+
+    - name: Compile Java
+      run: |
+        cd HolidayTravelVehicles
+        javac -d . *.java
+      # Compile java file from directory
+    - name: Run Main Class
+      run: |
+          cd HolidayTravelVehicles
+          java Main
+    # See: https://github.com/gradle/actions/blob/main/dependency-submission/README.md
+    - name: Generate and submit dependency graph
+      uses: gradle/actions/dependency-submission@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0

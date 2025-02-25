@@ -2,7 +2,7 @@ name: SonarCloud workflow
 on:
   push:
     branches:
-      - individual
+      - master
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
